@@ -1,0 +1,20 @@
+.main {
+    width: 50%;
+    height: 100%;
+    background-color:rgb(146, 171, 240);
+}
+
+.placeholder {
+    width: 50%;
+    height: 100px;
+    background-color:rgb(209, 191, 217);
+}
+
+h1 {
+    color:rgb(146, 81, 153);
+}
+
+h2 {
+    color:rgb(235, 14, 99);
+}
+

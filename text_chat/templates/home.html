@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    下面这个也是一种解决方案。-->
+<!--    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/home.css">
+
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>世界真小啊!</title>
+    {% endif %}
+
+</head>
+
+<body>
+
+    <!--  这里想办法获取用户的ip地址。  -->
+    <h1>Yo, what's up! User from -- {{ip}}! </h1>
+    <p>your request headers is: {{headers}}</p>
+
+    <div class="main">
+         {% if msgs %}
+
+            {% for m in msgs %}
+                <p>{{ m.sender }}: 　</p>
+                <h2> {{m.msg}} </h2>
+                <p>{{m.send_time}}</p>
+                <hr>
+            {% endfor %}
+
+         {% else %}
+            <p> 目前还没有聊天记录。</p>
+         {% endif %}
+
+    </div>
+
+
+    <div class="placeholder">
+
+    </div>
+
+
+     <form method="POST" action="/index" style="width:400px; height=200px">
+         {{ form.csrf_token }}
+         {{ form.hidden_tag() }}    <!-- 这个是用来隐藏表单信息的。-->
+         {{ form.msg_info.lable }} {{ form.msg_info(size=100) }}
+         <input type="submit" value="发送">
+     </form>
+
+
+</body>
+</html>
