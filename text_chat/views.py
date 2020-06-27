@@ -7,7 +7,7 @@ from text_chat import app
 from text_chat.models import db, Message
 from text_chat.forms import ChatForm
 
-from flask import render_template, redirect
+from flask import render_template, redirect, url_for
 from flask import request
 
 
@@ -25,11 +25,12 @@ def home():
 
     msgs = Message.query.all()
     form = ChatForm()
-    if form.validate_on_submit():
+
+    if request.method == 'POST' and form.validate_on_submit():
         a_msg = form.msg_info.data
         db.session.add(Message(sender=user, msg=a_msg))
         db.session.commit()     # 这个不要忘了。
-        return redirect('/')
+        return redirect(url_for("home"))
 
     return render_template("home.html",
                            title="文字通话",
@@ -38,6 +39,12 @@ def home():
                            ip=ip,
                            headers=headers,
                            )
+
+@app.route('/')
+def update_chat_status():
+    pass
+    #
+
 
 
 @app.route("/success")
